@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='../static/style.css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    function analyze() {
+        var uploadFile = "whatever";
+        var xhr = new XMLHttpRequest();
+        var loc = window.location;
+        console.log("Open request");
+        xhr.open('POST', `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, true);
+        xhr.onerror = function() {alert (xhr.responseText);}
+        xhr.onload = function(e) {
+            if (this.readyState === 4) {
+                console.log("It seems it's finished");
+                console.log(e.target.responseText);
+                var response = JSON.parse(e.target.responseText);
+                document.getElementById('result-label').innerHTML = `Result = ${response['result']}`;
+            };
+        };
+        var fileData = new FormData();
+        fileData.append('file', uploadFile);
+        console.log("uploadFile: ");
+        console.log(uploadFile);
+        xhr.send(fileData);
+    };
+    </script>
+
+</head>
+<body>
+<div>
+    <div class='center'>
+        <div class="title">Predict blank / non_blank Serengeti Images</div>
+        <div class='content'>
+            <div class='analyze'>
+                <button id='analyze-button' class='analyze-button' type='button' onclick='analyze("request")'>Predict</button>
+            </div>
+            <div class='result-label'>
+                <label id='result-label'></label>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
