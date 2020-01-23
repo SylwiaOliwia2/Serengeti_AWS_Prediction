@@ -29,6 +29,8 @@ I hope that this repository might be also helpful as example respository to **Im
 4. In the AWS console:
     ```
     mkdir deploy_folder
+    mkdir deploy_folder/static
+    mkdir deploy_folder/templates
     ```
 5. Open new console and copy files from your machine to the AWS instance (replace the angle bracket strings with proper values): 
     ```
@@ -49,9 +51,9 @@ I hope that this repository might be also helpful as example respository to **Im
     ```
     docker run --gpus all -p 80:5000 app-serengeti . 
     ```
-    The console shoud say that th eapp is running on *0.0.0.5000*.
+    The console shoud say that the app is running on *0.0.0.5000*.
 9. In the browser open your public DNS link. In the window you will see simple GUI with the *Predict* button. Press it. The AWS console should display progress in predicting images. Predicting ~40000 images resized to 500x500px took me ~2,5hours.
-9. The result will be saved directly in S3 bucket *serengeti-images* as *output_blank_non_test.csv* with the following columns:
+10. The result will be saved directly in S3 bucket *serengeti-images* as *output_blank_non_test.csv* with the following columns:
     - filenames (csv index)
     - label - predicted label: 0 (blank) or 1 (non-blank)
     - blank_proba - probability if an image being blank
